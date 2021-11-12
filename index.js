@@ -15,24 +15,24 @@ MongoClient.connect(url, {useUnifiedTopology: true}, (err, client) => {
 
     db.dropCollection('campsites', (err, result) => {
         assert.strictEqual(err, null);
-        console.log('Dropped Collection', result);
+        console.log('Dropped Collection:', result);
 
-        dboper.insertDocument(db, { name: "Breadcrumb Trail Camground", description: "Test"},
-        'campsites', result => {
+        dboper.insertDocument(db, { name: "Breadcrumb Trail Campground", description: "Test"},
+            'campsites', result => {
             console.log('Insert Document:', result.ops);
-            
+
             dboper.findDocuments(db, 'campsites', docs => {
                 console.log('Found Documents:', docs);
 
-                dboper.updateDocument(db, {name: "Breadcumb Trail Campground"}, 
+                dboper.updateDocument(db, { name: "Breadcrumb Trail Campground" },
                     { description: "Updated Test Description" }, 'campsites',
                     result => {
                         console.log('Updated Document Count:', result.result.nModified);
 
                         dboper.findDocuments(db, 'campsites', docs => {
                             console.log('Found Documents:', docs);
-
-                            dboper.removeDocument(db, {name: "Breadcrumb Trail Campground" },
+                            
+                            dboper.removeDocument(db, { name: "Breadcrumb Trail Campground" },
                                 'campsites', result => {
                                     console.log('Deleted Document Count:', result.deletedCount);
 
@@ -43,6 +43,6 @@ MongoClient.connect(url, {useUnifiedTopology: true}, (err, client) => {
                     }
                 );
             });
-        });            
+        });
     });
 });
